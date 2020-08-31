@@ -2224,7 +2224,21 @@
         self._node = (typeof Howler.ctx.createGain === 'undefined') ? Howler.ctx.createGainNode() : Howler.ctx.createGain();
         self._node.gain.setValueAtTime(volume, Howler.ctx.currentTime);
         self._node.paused = true;
+        
         self._node.connect(Howler.masterGain);
+
+        // create hooks for FX inserts and send
+        self._fxSend = (typeof Howler.ctx.createGain === 'undefined') ? Howler.ctx.createGainNode() : Howler.ctx.createGain();
+        self._fxInsertIn = (typeof Howler.ctx.createGain === 'undefined') ? Howler.ctx.createGainNode() : Howler.ctx.createGain();
+        self._fxInsertOut = (typeof Howler.ctx.createGain === 'undefined') ? Howler.ctx.createGainNode() : Howler.ctx.createGain();
+        // Connect to the correct node.
+        if (self._panner) {
+          self._fxInsertOut.connect(self._panner);
+        } else {
+          self._fxInsertOut.connect(self._node);
+        }
+        // on initialization, connect input to output
+        self._fxInsertIn.connect(self._fxInsertOut);
       } else if (!Howler.noAudio) {
         // Get an unlocked Audio object from the pool.
         self._node = Howler._obtainHtml5Audio();
