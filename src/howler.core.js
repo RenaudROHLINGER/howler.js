@@ -1,5 +1,5 @@
 /*!
- *  howler.js v2.0.15
+ *  howler.js v2.2.0
  *  howlerjs.com
  *
  *  (c) 2013-2020, James Simpson of GoldFire Studios
@@ -2228,7 +2228,7 @@
       } else if (!Howler.noAudio) {
         // Get an unlocked Audio object from the pool.
         self._node = Howler._obtainHtml5Audio();
-
+        console.log(self._node)
         // Listen for errors (http://dev.w3.org/html5/spec-author-view/spec.html#mediaerror).
         self._errorFn = self._errorListener.bind(self);
         self._node.addEventListener('error', self._errorFn, false);
