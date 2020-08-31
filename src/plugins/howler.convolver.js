@@ -92,7 +92,7 @@ Example of parallel processing, used for time based effects such as reverb and d
                 if (xhr.status < 300 && xhr.status > 199 || xhr.status === 302) {
                     Howler.ctx.decodeAudioData(xhr.response, function(buffer) {
                         // create convolver
-                        let convolver = Howler.ctx.createConvolver();
+                        const convolver = Howler.ctx.createConvolver();
                         convolver.connect(Howler.masterGain);
                         convolver.buffer = buffer;
                         self._convolvers[convolverName] = convolver;
